@@ -1,0 +1,38 @@
+main: com.Moshu.com.Moshu.SimpleAdvertising.Main
+name: com.Moshu.SimpleAdvertising
+version: 3.4.21
+author: Moshu
+website: http://mc.b-zone.ro
+depend: [Vault]
+softdepend: [Essentials, PlaceholderAPI]
+
+commands:
+  ad:
+    description: Display an announcement on the chat
+  broadcast:
+    description: com.Moshu.SimpleAdvertising.Broadcast text in chat
+    aliases: [bc]
+  points:
+    description: Use points.
+permissions:
+  simplead.ad:
+    default: op
+    description: Display an announcement
+  simplead.broadcast:
+    default: op
+    description: Title & chat broadcasting
+  simplead.reload:
+    default: op
+    description: Reload the plugin
+  simplead.help:
+    default: true
+    description: Allow players to see /help page
+  simplead.admin:
+    default: op
+    description: Admin
+  simplead.points:
+    default: op
+    description: Sees his own points
+  simplead.debug:
+    default: op
+    description: Use debug command

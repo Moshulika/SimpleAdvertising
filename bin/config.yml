@@ -1,0 +1,138 @@
+
+###############################################################################################
+##
+##  com.Moshu.SimpleAdvertising, 4.04.2021 Made by Moshu
+##  > Change-log:
+## - Added TabCompleter
+## - Updated dependencies
+## - Changed default config value for Sound
+## Enjoy! :3
+##
+##
+## USEFUL LINKS:
+## MATERIAL NAMES: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
+## SOUND NAMES: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html
+## YML VALIDATOR: http://www.yamllint.com/
+## DISCORD SERVER FOR HELP: discord.gg/rADmNx9
+## WIKI: https://github.com/Moshulika/Simple-Advertising/wiki 
+##
+###############################################################################################
+
+
+enable:
+  welcomers: true
+  logging: true
+  sounds: true
+  updater: true
+
+advertising:
+  economy: "money"
+  cooldown: 10
+  price: 100
+  stay: 0
+  #Stay or how much an ad stays live (in seconds)
+  #Set to "permanent" to be active until another person sends an ad.
+  #This value should be greater or equal to the one used in repeat.
+  repeat: 0
+  #If the ad should repeat if stay is more than 0
+  #at what interval should it be sent (in seconds)
+  sound: BLOCK_NOTE_BLOCK_PLING
+#Vaild economy types: money, points.
+
+points:
+  default-balance: 1
+  messages:
+    usage-give: "&fUsage: /points give (Player) (Points)"
+    usage-take: "&fUsage: /points take (Player) (Points)"
+    usage-set: "&fUsage: /points set (Player) (Points)"
+    negative-int: "&fYou cannot use negative numbers or 0"
+    insufficient-points: "This player doesn't have that much money"
+    set-points:
+      title: "{prefix}"
+      subtitle: "You've set &c{player}&f's points to &c{points}"
+    give-points:
+      title: "{prefix}"
+      subtitle: "You gave &c{points} &fpoints to &c{player}"
+    receive-points:
+      title: "{prefix}"
+      subtitle: "You received &c{points} &fpoints from &c{player}"
+    give-everyone-points:
+      title: "{prefix}"
+      subtitle: "You've given everyone &c{points} &fpoints"
+    take-points:
+      title: "{prefix}"
+      subtitle: "You took &c{points} &fpoints from &c{player}"
+    look-points:
+      title: "{prefix}"
+      subtitle: "You have &c{points} points&f."
+    give-all-points:
+      sent:
+        title: "{prefix}"
+        subtitle: "You sent &ceveryone {points} &fpoints"
+      received:
+        title: "{prefix}"
+        subtitle: "&cEveryone &frecieved &c{points} points&f."
+
+gui:
+  inventory-name: "com.Moshu.SimpleAdvertising.Advertising Menu"
+  item: "PAPER"
+  item-name: "&cAdvertise"
+  item-lore:
+    - "&7&oSend a public ad"
+    - "&7&oFor everyone to see"
+    - "&7&oPrice: &a$&f{price}"
+
+titles:
+  fade-in: 30
+  stay: 50
+  fade-out: 30
+#20 ticks = 1 second
+
+auto-advertiser:
+  chat: true
+  titles: true
+  minimum-players-online: 1
+  chat-interval: 60
+  titles-interval: 65
+  chat-messages:
+    - "{prefix} We've just got the best plugin in the world, com.Moshu.SimpleAdvertising"
+    - "{prefix} For just {price}&a$&f, you can sell your items, house, or life in moments"
+    - "{prefix} You just have to love it"
+  title-messages:
+    - "{prefix}"
+    - "Everything"
+  subtitle-messages:
+    - "Woah! So cool"
+    - "&cIs way better now"
+
+broadcast:
+  enable-titles: true
+  title: "&c&lBroadcast"
+  subtitle: "{message}"
+  chat:
+    - "&8&m---&l&f(&cBroadcast&f&l)&8&m---"
+    - ""
+    - "{message}"
+    - ""
+
+messages:
+  prefix: "&f&l(&cAdvertising&f&l)&f "
+  format: "{prefix}&7{message}, made by &f{player}&7."
+  succes: "&7Your ad was placed for &f{price}&a$"
+  succes-points: "&7Your ad was placed for &f{price} points"
+  balance: "&oYou have &c{points} &f&opoints"
+  no-money: "You don't have enough money"
+  no-points: "You don't have enough points"
+  cooldown-message: "You have to wait before posting another advertisment"
+  active-ad: "There is an ad already up for display. Wait your turn"
+  transaction-cancelled: "&oTransaction cancelled, thank you for your time"
+  dialog: "&oType in chat your desired ad, or type &ccancel &f&oto cancel the transaction"
+  empty-message: "&fHey! You forgot the message"
+  join: "&a(&2Join&a) {player}"
+  quit: "&c(&4Quit&c) {player}"
+  no-permission:
+    title: "&c&l✖"
+    subtitle: "&fNo permission"
+  target-null:
+    title: "&c&l✖"
+    subtitle: "&fTarget is not online"
