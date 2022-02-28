@@ -1,14 +1,8 @@
 package com.Moshu.SimpleAdvertising;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.UUID;
-
+import net.milkbowl.vault.economy.Economy;
+import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,12 +10,15 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.RegisteredServiceProvider;
-import net.milkbowl.vault.economy.Economy;
-import net.milkbowl.vault.economy.EconomyResponse;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class Events implements Listener {
 
@@ -59,7 +56,6 @@ public class Events implements Listener {
 			String uuid = e.getPlayer().getUniqueId().toString();
 			plugin.getData().addDefault(uuid, "");	   
 			plugin.getData().addDefault(uuid + ".default-name", e.getPlayer().getName());
-			plugin.getData().addDefault(uuid + ".ip", Utils.getIp(e.getPlayer()));    
 			plugin.getData().addDefault(uuid + ".points", plugin.getConfig().getInt("points.default-balance"));  
 			plugin.getData().addDefault(uuid + ".latest-ad", "");
 			plugin.getData().addDefault(uuid + ".ads-created", 0);
