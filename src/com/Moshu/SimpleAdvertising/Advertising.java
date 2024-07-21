@@ -4,10 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -345,8 +343,9 @@ public class Advertising implements CommandExecutor {
 						return true;
 					}
 
-					plugin.getPluginLoader().disablePlugin(plugin);
-					plugin.getPluginLoader().enablePlugin(plugin);
+					Bukkit.getPluginManager().disablePlugin(plugin);
+					Bukkit.getPluginManager().enablePlugin(plugin);
+
 					plugin.saveDefaultConfig();
 					plugin.reloadConfig();
 
