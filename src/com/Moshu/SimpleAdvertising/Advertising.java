@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -143,7 +144,9 @@ public class Advertising implements CommandExecutor {
 		for(String s : lines)
 		{
 
-			s = s.replace("{message}", message);
+			if(p.hasPermission("simplead.color")) s = s.replace("{message}", message);
+			else s = s.replace("{message}", ChatColor.stripColor(message));
+
 			s = s.replace("{player}", p.getName());
 			s = s.replace("{prefix}", prefix);
 

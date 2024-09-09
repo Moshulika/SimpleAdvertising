@@ -1,11 +1,11 @@
 main: com.Moshu.SimpleAdvertising.Main
 name: SimpleAdvertising
-version: 21.07.2024
+version: 10.9.2024
 author: Moshu
 website: http://mc.b-zone.ro
 depend: [Vault]
 softdepend: [Essentials, PlaceholderAPI]
-api-version: "1.21"
+api-version: "1.16"
 
 commands:
   ad:
@@ -39,3 +39,6 @@ permissions:
   simplead.debug:
     default: op
     description: Use debug command
+  simplead.color:
+    default: op
+    description: Send an colored ad
