@@ -1,6 +1,6 @@
 main: com.Moshu.SimpleAdvertising.Main
 name: SimpleAdvertising
-version: 10.9.2024
+version: 28.06.2025
 author: Moshu
 website: http://mc.b-zone.ro
 depend: [Vault]

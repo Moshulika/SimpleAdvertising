@@ -141,6 +141,9 @@ public class Advertising implements CommandExecutor {
 	private static void sendLines(Player p, Player receiver, List<String> lines, String message, String prefix)
 	{
 
+		boolean sendCentered = plugin.getConfig().getBoolean("messages.center-ads", false);
+		SendCenteredMessage scm = new SendCenteredMessage();
+
 		for(String s : lines)
 		{
 
@@ -149,9 +152,18 @@ public class Advertising implements CommandExecutor {
 
 			s = s.replace("{player}", p.getName());
 			s = s.replace("{prefix}", prefix);
+			s = Utils.format(s);
 
-			receiver.sendMessage(Utils.format(s));
-			Bukkit.getConsoleSender().sendMessage(Utils.format(s));
+			if(sendCentered)
+			{
+				scm.sendCenteredMessage(receiver, s);
+			}
+			else
+			{
+				receiver.sendMessage(s);
+			}
+
+			Bukkit.getConsoleSender().sendMessage(s);
 
 		}
 

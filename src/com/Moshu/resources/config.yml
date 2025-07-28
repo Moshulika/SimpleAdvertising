@@ -118,6 +118,7 @@ broadcast:
 
 messages:
   prefix: "&8(#80C7FDAdvertising&8)&f "
+  center-ads: true
   format:
     - " "
     - " {prefix}&oNow even better"
