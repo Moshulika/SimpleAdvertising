@@ -3,6 +3,7 @@ package com.Moshu.SimpleAdvertising;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.common.base.Joiner;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -26,10 +27,9 @@ public class Broadcast implements CommandExecutor {
 	{
 	
 		
-		if(cmd.getName().equalsIgnoreCase("broadcast"))
+		if(cmd.getName().equalsIgnoreCase("adbc"))
 		{
-			
-			
+
 			String prefix = plugin.getConfig().getString("messages.prefix"); 
 			
 			String broadcastMsg = "";
@@ -40,103 +40,94 @@ public class Broadcast implements CommandExecutor {
 			
 			broadcastMsg = Utils.format(broadcastMsg);
 			final String msg = broadcastMsg;
-			
-			if(!(sender instanceof Player))
-			{
-				
-				
-				if(args.length == 0)
-            	{
-            		sender.sendMessage(Utils.format(prefix + plugin.getConfig().getString("messages.empty-message")));
-            		return true;
-            	}
-				else
-				{
-					if(plugin.getConfig().getString("broadcast.enable-titles").equalsIgnoreCase("true"))
-	            	{
-	            	
-		            	if(broadcastMsg.length() > 42)
-		    			{
-		          		
-		            		List<String> strings = new ArrayList<>();
-		        			
-		        			for (String string : plugin.getConfig().getStringList("broadcast.chat")) 
-		        					{
-		        				string = string.replace("{message}", broadcastMsg);
-		        				strings.add(Utils.format(string));
-		        					}
-		            		
-		            		for(Player p : Bukkit.getOnlinePlayers())
-		            		{
-		            			
-		            			
-		            			for(String s : strings)
-		            			{
-		            				p.sendMessage(s);
-		            			}
-		
-		            		}
-		           			}
-		            			else
-		            			{
-		            				
-		            			
-		            				
-				        			
-				        			BukkitRunnable run = new BukkitRunnable() {
-				        				
-				        				int fadein = plugin.getConfig().getInt("titles.fade-in");
-			        					int stay = plugin.getConfig().getInt("titles.stay");
-			        					int fadeout = plugin.getConfig().getInt("titles.fade-out");
-			        					
-					        			String s = Utils.format(plugin.getConfig().getString("broadcast.title"));
-					        			String a = plugin.getConfig().getString("broadcast.subtitle");
-				        				
-				        				public void run()
-				        				{
-				        					for(Player p : Bukkit.getOnlinePlayers())
-				                    		{
-				            					
-						            			a = a.replace("{message}", msg);
-						            			a = Utils.format(a);
-						            			p.sendTitle(s, a, fadein, stay, fadeout);
-						            			Utils.sendSound(p);
-				                    		}	
-				        				}
-				        				
-				        			};
-				        			
-				        			run.runTaskAsynchronously(plugin);
-		            			
-		            			}
-	            	}
-	            	else
-	            	{
-	            		
-	            		
-	            		List<String> strings = new ArrayList<>();
-	        			
-	        			for (String string : plugin.getConfig().getStringList("broadcast.chat")) 
-	        					{
-	        				string = string.replace("{message}", broadcastMsg);
-	        				strings.add(Utils.format(string));
-	        					}
-	            		
-	            		for(Player p : Bukkit.getOnlinePlayers())
-	            		{
-	            			
-	            			
-	            			for(String s : strings)
-	            			{
-	            				p.sendMessage(s);
-	            			}
-	            			
+			String broadcastSent = plugin.getConfig().getString("messages.broadcast-sent", "&8(&aBroadcast&8) &fBroadcast sent successfuly: {broadcast}");
 
-	            	
-	            		}
-	            		}
+			if(!(sender instanceof Player)) {
+
+				if (args.length == 0) {
+					sender.sendMessage(Utils.format(prefix + plugin.getConfig().getString("messages.empty-message")));
+					return true;
+				} else {
+
+					if (plugin.getConfig().getString("broadcast.enable-titles").equalsIgnoreCase("true")) {
+
+						if (broadcastMsg.length() > 42) {
+
+							List<String> strings = new ArrayList<>();
+
+							for (String string : plugin.getConfig().getStringList("broadcast.chat")) {
+								string = string.replace("{message}", broadcastMsg);
+								strings.add(Utils.format(string));
+							}
+
+							for (Player p : Bukkit.getOnlinePlayers()) {
+
+
+								for (String s : strings) {
+									p.sendMessage(s);
+								}
+
+							}
+
+							broadcastSent = broadcastSent.replace("{broadcast}", "\n" + Joiner.on("\n").join(strings));
+
+						} else {
+
+
+							BukkitRunnable run = new BukkitRunnable() {
+
+								int fadein = plugin.getConfig().getInt("titles.fade-in");
+								int stay = plugin.getConfig().getInt("titles.stay");
+								int fadeout = plugin.getConfig().getInt("titles.fade-out");
+
+								String s = Utils.format(plugin.getConfig().getString("broadcast.title"));
+								String a = plugin.getConfig().getString("broadcast.subtitle");
+
+								public void run() {
+									for (Player p : Bukkit.getOnlinePlayers()) {
+
+										a = a.replace("{message}", msg);
+										a = Utils.format(a);
+										p.sendTitle(s, a, fadein, stay, fadeout);
+										Utils.sendSound(p);
+									}
+								}
+
+							};
+
+							run.runTaskAsynchronously(plugin);
+
+							broadcastSent = broadcastSent.replace("{broadcast}", broadcastMsg);
+
+						}
+					} else {
+
+
+						List<String> strings = new ArrayList<>();
+
+						for (String string : plugin.getConfig().getStringList("broadcast.chat")) {
+							string = string.replace("{message}", broadcastMsg);
+							strings.add(Utils.format(string));
+						}
+
+						for (Player p : Bukkit.getOnlinePlayers()) {
+
+
+							for (String s : strings) {
+								p.sendMessage(s);
+							}
+
+
+						}
+
+						broadcastSent = broadcastSent.replace("{broadcast}", "\n" + Joiner.on("\n").join(strings));
+
+					}
+
+					Bukkit.getConsoleSender().sendMessage(Utils.format(broadcastSent));
+
 				}
-				
+
 				return true;
 			}
 			
@@ -154,93 +145,85 @@ public class Broadcast implements CommandExecutor {
             		player.sendMessage(Utils.format(prefix + plugin.getConfig().getString("messages.empty-message")));
             		return true;
             	}
-            	else
-            	{
-            		
-            	if(plugin.getConfig().getString("broadcast.enable-titles").equalsIgnoreCase("true"))
-            	{
-            	
-	            	if(broadcastMsg.length() > 42)
-	    			{
-	          		
-	            		List<String> strings = new ArrayList<>();
-	        			
-	        			for (String string : plugin.getConfig().getStringList("broadcast.chat")) 
-	        					{
-	        				string = string.replace("{message}", broadcastMsg);
-	        				strings.add(Utils.format(string));
-	        					}
-	            		
-	            		for(Player p : Bukkit.getOnlinePlayers())
-	            		{
-	            			
-	            			
-	            			for(String s : strings)
-	            			{
-	            				p.sendMessage(s);
-	            			}
-	
-	            		}
-	           			}
-	            			else
-	            			{
-	            				
-	            			
-	            				
-			        			
-			        			BukkitRunnable run = new BukkitRunnable() {
-			        				
-			        				int fadein = plugin.getConfig().getInt("titles.fade-in");
-		        					int stay = plugin.getConfig().getInt("titles.stay");
-		        					int fadeout = plugin.getConfig().getInt("titles.fade-out");
-		        					
-				        			String s = Utils.format(plugin.getConfig().getString("broadcast.title"));
-				        			String a = plugin.getConfig().getString("broadcast.subtitle");
-			        				
-			        				public void run()
-			        				{
-			        					for(Player p : Bukkit.getOnlinePlayers())
-			                    		{
-			            					
-					            			a = a.replace("{message}", msg);
-					            			a = Utils.format(a);
-					            			p.sendTitle(s, a, fadein, stay, fadeout);
-					            			Utils.sendSound(p);
-			                    		}	
-			        				}
-			        				
-			        			};
-			        			
-			        			run.runTaskAsynchronously(plugin);
-	            			
-	            			}
-            	}
-            	else
-            	{
-            		
-            		
-            		List<String> strings = new ArrayList<>();
-        			
-        			for (String string : plugin.getConfig().getStringList("broadcast.chat")) 
-        					{
-        				string = string.replace("{message}", broadcastMsg);
-        				strings.add(Utils.format(string));
-        					}
-            		
-            		for(Player p : Bukkit.getOnlinePlayers())
-            		{
-            			
-            			
-            			for(String s : strings)
-            			{
-            				p.sendMessage(s);
-            			}
-            			
+            	else {
 
-            	
-            		}
-            		}
-            	}
+					if (plugin.getConfig().getString("broadcast.enable-titles").equalsIgnoreCase("true")) {
+
+						if (broadcastMsg.length() > 42) {
+
+							List<String> strings = new ArrayList<>();
+
+							for (String string : plugin.getConfig().getStringList("broadcast.chat")) {
+								string = string.replace("{message}", broadcastMsg);
+								strings.add(Utils.format(string));
+							}
+
+							for (Player p : Bukkit.getOnlinePlayers()) {
+
+
+								for (String s : strings) {
+									p.sendMessage(s);
+								}
+
+							}
+
+							broadcastSent = broadcastSent.replace("{broadcast}", "\n" + Joiner.on("\n").join(strings));
+
+						} else {
+
+
+							BukkitRunnable run = new BukkitRunnable() {
+
+								int fadein = plugin.getConfig().getInt("titles.fade-in");
+								int stay = plugin.getConfig().getInt("titles.stay");
+								int fadeout = plugin.getConfig().getInt("titles.fade-out");
+
+								String s = Utils.format(plugin.getConfig().getString("broadcast.title"));
+								String a = plugin.getConfig().getString("broadcast.subtitle");
+
+								public void run() {
+									for (Player p : Bukkit.getOnlinePlayers()) {
+
+										a = a.replace("{message}", msg);
+										a = Utils.format(a);
+										p.sendTitle(s, a, fadein, stay, fadeout);
+										Utils.sendSound(p);
+									}
+								}
+
+							};
+
+							run.runTaskAsynchronously(plugin);
+							broadcastSent = broadcastSent.replace("{broadcast}", broadcastMsg);
+
+						}
+					} else {
+
+
+						List<String> strings = new ArrayList<>();
+
+						for (String string : plugin.getConfig().getStringList("broadcast.chat")) {
+							string = string.replace("{message}", broadcastMsg);
+							strings.add(Utils.format(string));
+						}
+
+						for (Player p : Bukkit.getOnlinePlayers()) {
+
+
+							for (String s : strings) {
+								p.sendMessage(s);
+							}
+
+
+						}
+
+						broadcastSent = broadcastSent.replace("{broadcast}", "\n" + Joiner.on("\n").join(strings));
+
+					}
+
+					Bukkit.getConsoleSender().sendMessage(Utils.format(broadcastSent));
+
+				}
 	
             }
 	

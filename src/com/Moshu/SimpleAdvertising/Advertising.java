@@ -306,7 +306,7 @@ public class Advertising implements CommandExecutor {
 					sender.sendMessage(Utils.format("&l&8* &c/ad reload &l&8» &bReloads the plugin"));
 					sender.sendMessage(Utils.format("&l&8* &c/ad help &l&8» &bShows this page"));
 					sender.sendMessage(Utils.format("&l&8* &c/ad debug &l&8» &bShows debug info"));
-					sender.sendMessage(Utils.format("&l&8* &c/broadcast &l&8» &bBroadcast using this plugin"));
+					sender.sendMessage(Utils.format("&l&8* &c/adbc &l&8» &bBroadcast using this plugin"));
 					sender.sendMessage(Utils.format("&eFor further help check out this page: &6https://www.spigotmc.org/com.Moshu.resources/simple-advertising.40414/"));
 					Utils.sendSound(p);
 					return true;

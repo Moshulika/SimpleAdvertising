@@ -153,7 +153,7 @@ public class Main extends JavaPlugin {
 		getCommand("ad").setExecutor(ad);
 
 		if(getConfig().getBoolean("broadcast.enabled", true)) {
-			getCommand("broadcast").setExecutor(bc);
+			getCommand("adbc").setExecutor(bc);
 		}
 
 		getCommand("points").setExecutor(pts);

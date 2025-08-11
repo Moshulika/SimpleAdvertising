@@ -92,8 +92,8 @@ auto-advertiser:
   chat: true
   titles: true
   minimum-players-online: 1
-  chat-interval: 60
-  titles-interval: 65
+  chat-interval: 300
+  titles-interval: 600
   chat-messages:
     - "{prefix}We've just got the best plugin in the world, SimpleAdvertising"
     - "{prefix}For just {price}&a$&f, you can sell your items, house, or life in moments"
@@ -136,6 +136,7 @@ messages:
   dialog: "&oType in chat your desired ad, or type &ccancel &f&oto cancel the transaction"
   already-in-dialogue: "&cFinish your initial ad first"
   empty-message: "&fHey! You forgot the message"
+  broadcast-sent: "&8(&aBroadcast&8) &fBroadcast sent successfuly: {broadcast}"
   join: "&a(&2Join&a) {player}"
   quit: "&c(&4Quit&c) {player}"
   no-permission:
